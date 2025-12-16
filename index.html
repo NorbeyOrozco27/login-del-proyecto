@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TransUnidos Corp | Logística</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+    <!-- PANTALLA 1: LOGIN SPLIT SCREEN (VIDEO) -->
+    <div class="login-split-container" id="login-view">
+        
+        <!-- Lado Izquierdo: Video -->
+        <div class="login-media-side">
+            <video autoplay muted loop playsinline id="bg-video">
+                <!-- Asegúrate que el video esté en tu carpeta con este nombre -->
+                <source src="assets/video_inicial.mp4" type="video/mp4">
+                Tu navegador no soporta videos.
+            </video>
+            <div class="video-overlay">
+                <div class="overlay-content">
+                    <h2>Logística Inteligente</h2>
+                    <p>Centro de Mando y monitoreo en tiempo real para TransUnidos.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Lado Derecho: Formulario -->
+        <div class="login-form-side">
+            <div class="login-card-clean">
+                <div class="brand-header">
+                    <div class="icon-circle">
+                        <i class="fa-solid fa-bus"></i>
+                    </div>
+                    <h2>Bienvenido</h2>
+                    <p>Ingresa tus credenciales para acceder.</p>
+                </div>
+                
+                <form id="login-form">
+                    <div class="input-container">
+                        <i class="fa-solid fa-envelope"></i>
+                        <input type="email" id="email" placeholder="Correo Corporativo" required>
+                    </div>
+                    <div class="input-container">
+                        <i class="fa-solid fa-lock"></i>
+                        <input type="password" id="password" placeholder="Contraseña" required>
+                    </div>
+                    
+                    <button type="submit" id="btn-login">
+                        INGRESAR
+                        <i class="fa-solid fa-arrow-right"></i>
+                    </button>
+                    <p id="feedback-msg"></p>
+                </form>
+                
+                <div class="footer-login">
+                    &copy; 2025-2026 TransUnidos Corp
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- DASHBOARD ESTILO "APP GRID" -->
+<div class="dashboard-wrapper hidden" id="dashboard-view">
+    
+    <!-- Barra Superior Limpia -->
+    <header class="top-bar">
+        <div class="logo-section">
+            <i class="fa-solid fa-layer-group"></i>
+            <span>TransUnidos <small>Portal</small></span>
+        </div>
+        <div class="user-pill">
+            <div class="user-avatar">
+                <i class="fa-solid fa-user"></i>
+            </div>
+            <div class="user-data">
+                <span id="user-name-display">Usuario</span>
+                <small id="user-role-display">Rol</small>
+            </div>
+            <button onclick="logout()" class="logout-mini" title="Salir">
+                <i class="fa-solid fa-power-off"></i>
+            </button>
+        </div>
+    </header>
+
+    <main class="app-container">
+        <!-- Saludo -->
+        <div class="greeting-section">
+            <h1>Hola, <span class="highlight-text">Equipo Operativo</span> 👋</h1>
+            <p>Selecciona una herramienta para comenzar.</p>
+        </div>
+
+        <!-- SECCIÓN 1: RODAMIENTOS (Estilo Tarjetas Grandes) -->
+        <h3 class="section-label">📅 Gestión de Rodamiento</h3>
+        <div class="cards-grid-large">
+            
+            <!-- Tarjeta Semanal (Destacada) -->
+            <a href="https://script.google.com/macros/s/AKfycby6BJ3YWgCdE18VOrSbgtc96hWX66T5ersgKIELwpUvjVdwWjZGaizoJfa4uSYJlmMA/exec" target="_blank" class="app-card primary-card">
+                <div class="card-bg-icon"><i class="fa-regular fa-calendar"></i></div>
+                <div class="card-content">
+                    <div class="icon-box">
+                        <i class="fa-regular fa-calendar-check"></i>
+                    </div>
+                    <div class="text-box">
+                        <h3>Rodamiento Semanal</h3>
+                        <p>Programación lunes a sábado</p>
+                    </div>
+                    <div class="arrow-action">
+                        <i class="fa-solid fa-arrow-right"></i>
+                    </div>
+                </div>
+            </a>
+
+            <!-- Tarjeta Dominical (Estilo Light) -->
+            <a href="TU_ENLACE_DOMINICAL" target="_blank" class="app-card secondary-card">
+                <div class="card-content">
+                    <div class="icon-box blue">
+                        <i class="fa-solid fa-mug-hot"></i>
+                    </div>
+                    <div class="text-box">
+                        <h3>Rodamiento Dominical</h3>
+                        <p>Turnos de fin de semana y festivos</p>
+                    </div>
+                    <div class="arrow-action dark">
+                        <i class="fa-solid fa-arrow-right"></i>
+                    </div>
+                </div>
+            </a>
+        </div>
+
+        <!-- SECCIÓN 2: MONITOREO (Estilo Panel de Control) -->
+        <h3 class="section-label">📍 Centro de Monitoreo GPS</h3>
+        <div class="monitoring-panel">
+            <div class="monitor-grid">
+                <!-- Rionegro -->
+                <a href="ENLACE_RIONEGRO" target="_blank" class="monitor-item">
+                    <span class="status-dot online"></span>
+                    <i class="fa-solid fa-map-location"></i>
+                    <span>Rionegro</span>
+                </a>
+                <!-- Norte -->
+                <a href="ENLACE_NORTE" target="_blank" class="monitor-item">
+                    <span class="status-dot online"></span>
+                    <i class="fa-solid fa-location-arrow"></i>
+                    <span>Norte</span>
+                </a>
+                <!-- Sur -->
+                <a href="ENLACE_SUR" target="_blank" class="monitor-item">
+                    <span class="status-dot online"></span>
+                    <i class="fa-solid fa-location-crosshairs"></i>
+                    <span>Sur</span>
+                </a>
+            </div>
+
+            <div class="construction-row">
+                <div class="disabled-pill">
+                    <i class="fa-solid fa-gauge-high"></i> Excesos Velocidad
+                    <span class="tag-soon">Pronto</span>
+                </div>
+                <div class="disabled-pill">
+                    <i class="fa-solid fa-hand"></i> Control Paradas
+                    <span class="tag-soon">Pronto</span>
+                </div>
+            </div>
+        </div>
+
+    </main>
+</div>
+
+    <!-- Librería Supabase -->
+    <script src="https://unpkg.com/@supabase/supabase-js@2"></script>
+    <script src="script.js"></script>
+</body>
+</html>

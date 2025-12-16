@@ -1,0 +1,425 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;700&display=swap');
+
+:root {
+    --primary: #06263b;        /* Tu Azul Oscuro */
+    --primary-light: #0a3d5e;
+    --accent: #00d2d3;         /* Cian Tech */
+    --white: #ffffff;
+    --bg-light: #f4f7fa;
+    --text-dark: #2c3e50;
+    --text-light: #8fa6b9;
+    --danger: #e74c3c;
+    --gradient-brand: linear-gradient(135deg, #06263b 0%, #031622 100%);
+    --shadow-card: 0 10px 30px rgba(6, 38, 59, 0.08);
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Montserrat', sans-serif; }
+
+body { background-color: var(--bg-light); color: var(--text-dark); height: 100vh; overflow-x: hidden; }
+
+.hidden { display: none !important; }
+
+/* =========================================
+   LOGIN SPLIT SCREEN (VIDEO)
+   ========================================= */
+.login-split-container {
+    display: flex;
+    width: 100%;
+    height: 100vh;
+    background: var(--white);
+    position: fixed;
+    top: 0; left: 0; z-index: 100;
+    transition: opacity 0.5s;
+}
+
+/* Lado Izquierdo: Video */
+.login-media-side {
+    flex: 1.2;
+    position: relative;
+    overflow: hidden;
+    background-color: var(--primary);
+}
+
+.login-media-side video {
+    width: 100%; height: 100%; object-fit: cover; opacity: 0.9;
+}
+
+.video-overlay {
+    position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+    background: linear-gradient(to top, rgba(6, 38, 59, 0.9), transparent);
+    display: flex; flex-direction: column; justify-content: flex-end;
+    padding: 3rem; color: var(--white);
+}
+
+.overlay-content h2 { font-size: 2.5rem; font-weight: 700; margin-bottom: 0.5rem; }
+.overlay-content p { font-size: 1.1rem; opacity: 0.8; max-width: 400px; }
+
+/* Lado Derecho: Formulario */
+.login-form-side {
+    flex: 0.8;
+    display: flex; justify-content: center; align-items: center;
+    background: var(--white); padding: 2rem;
+}
+
+.login-card-clean { width: 100%; max-width: 380px; padding: 2rem; text-align: center; }
+
+/* Elementos del Formulario */
+.brand-header { margin-bottom: 2rem; }
+.icon-circle {
+    width: 60px; height: 60px; background: var(--primary); border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    margin: 0 auto 1rem; font-size: 1.5rem; color: var(--white);
+}
+.brand-header h2 { color: var(--primary); font-weight: 700; margin-bottom: 5px; }
+.brand-header p { color: #888; font-size: 0.9rem; }
+
+.input-container { position: relative; margin-bottom: 1.2rem; text-align: left; }
+.input-container i { position: absolute; left: 15px; top: 50%; transform: translateY(-50%); color: #888; }
+.input-container input {
+    width: 100%; padding: 12px 12px 12px 45px;
+    border: 1px solid #ddd; border-radius: 6px; font-size: 1rem;
+}
+.input-container input:focus { outline: none; border-color: var(--primary); box-shadow: 0 0 0 3px rgba(6, 38, 59, 0.1); }
+
+#btn-login {
+    width: 100%; padding: 12px; background-color: var(--primary);
+    color: var(--white); border: none; border-radius: 6px;
+    font-weight: 600; cursor: pointer; transition: background 0.3s;
+    display: flex; justify-content: center; align-items: center; gap: 10px;
+}
+#btn-login:hover { background-color: var(--primary-light); }
+#feedback-msg { color: var(--danger); font-size: 0.85rem; margin-top: 1rem; min-height: 20px; }
+.footer-login { margin-top: 2rem; font-size: 0.8rem; opacity: 0.6; }
+
+/* Responsive Login */
+@media (max-width: 900px) {
+    .login-split-container { flex-direction: column; }
+    .login-media-side { flex: none; height: 35vh; }
+    .login-form-side { flex: 1; align-items: flex-start; padding-top: 2rem; background: #f4f7fa; border-radius: 20px 20px 0 0; margin-top: -20px; position: relative; z-index: 10; }
+}
+
+/* =========================================
+   DASHBOARD TECH (MODERNO)
+   ========================================= */
+
+/* Navbar */
+.top-navbar {
+    background: var(--white); height: 80px; display: flex;
+    justify-content: space-between; align-items: center;
+    padding: 0 5%; box-shadow: 0 4px 20px rgba(0,0,0,0.05);
+    position: sticky; top: 0; z-index: 50;
+}
+
+.nav-brand { display: flex; align-items: center; gap: 15px; }
+.brand-logo {
+    width: 45px; height: 45px; background: var(--primary); border-radius: 12px;
+    display: flex; align-items: center; justify-content: center;
+    color: var(--accent); font-size: 1.5rem;
+}
+.brand-text h2 { font-size: 1.2rem; font-weight: 700; color: var(--primary); line-height: 1; }
+.brand-text span { font-size: 0.75rem; color: var(--text-light); letter-spacing: 1px; text-transform: uppercase; }
+
+.user-profile { display: flex; align-items: center; gap: 20px; }
+.user-text { text-align: right; line-height: 1.2; }
+.user-text span { display: block; font-weight: 600; color: var(--primary); }
+.user-text small { color: var(--accent); font-weight: 600; text-transform: uppercase; font-size: 0.7rem; }
+
+.btn-logout-icon {
+    background: #ffecec; color: #ff5e5e; border: none; width: 40px; height: 40px;
+    border-radius: 50%; cursor: pointer; transition: 0.3s;
+    display: flex; align-items: center; justify-content: center;
+}
+.btn-logout-icon:hover { background: #ff5e5e; color: white; transform: rotate(90deg); }
+
+/* Main Content */
+.main-content { padding: 40px 5%; max-width: 1400px; margin: 0 auto; animation: fadeIn 0.8s ease; }
+@keyframes fadeIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+
+/* Hero Banner */
+.hero-banner {
+    background: var(--gradient-brand); border-radius: 20px; padding: 40px;
+    color: var(--white); display: flex; justify-content: space-between; align-items: center;
+    margin-bottom: 40px; box-shadow: 0 15px 30px rgba(6, 38, 59, 0.25);
+    position: relative; overflow: hidden;
+}
+.hero-banner::before {
+    content: ''; position: absolute; top: -50px; right: -50px;
+    width: 200px; height: 200px; background: var(--accent);
+    border-radius: 50%; opacity: 0.1; filter: blur(40px);
+}
+.hero-text h1 { font-size: 2rem; margin-bottom: 10px; }
+.hero-text p { opacity: 0.8; font-weight: 300; }
+.hero-decoration i { font-size: 4rem; color: var(--accent); opacity: 0.2; }
+
+/* Cards Grid */
+.panels-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(350px, 1fr)); gap: 30px; }
+.dashboard-card { border-radius: 20px; padding: 30px; position: relative; transition: transform 0.3s ease, box-shadow 0.3s ease; }
+.dashboard-card:hover { transform: translateY(-8px); box-shadow: var(--shadow-card); }
+
+/* Tarjeta Azul */
+.card-blue {
+    background: var(--primary); color: var(--white);
+    background-image: linear-gradient(160deg, var(--primary) 70%, #0a4569 100%);
+}
+.card-icon-floating { position: absolute; top: 20px; right: 20px; font-size: 3rem; color: var(--white); opacity: 0.05; }
+.card-blue h3 { font-size: 1.5rem; margin-bottom: 5px; }
+.card-blue p { opacity: 0.7; margin-bottom: 25px; font-size: 0.9rem; }
+
+.tech-btn {
+    display: flex; justify-content: space-between; align-items: center;
+    background: var(--accent); color: var(--primary); text-decoration: none;
+    padding: 15px 20px; border-radius: 10px; font-weight: 700;
+    margin-bottom: 15px; transition: 0.3s;
+}
+.tech-btn:hover { background: var(--white); padding-right: 25px; }
+.tech-btn.outline { background: transparent; border: 2px solid rgba(255,255,255,0.2); color: var(--white); }
+.tech-btn.outline:hover { background: rgba(255,255,255,0.1); border-color: var(--white); }
+
+/* Tarjeta Blanca */
+.card-white { background: var(--white); border: 1px solid #eef2f5; }
+.card-header-row { display: flex; align-items: center; gap: 15px; margin-bottom: 25px; }
+.icon-box {
+    width: 50px; height: 50px; background: rgba(0, 210, 211, 0.1);
+    color: var(--accent); border-radius: 12px; display: flex; align-items: center; justify-content: center; font-size: 1.2rem;
+}
+.card-white h3 { color: var(--primary); font-size: 1.3rem; }
+
+.locations-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin-bottom: 30px; }
+.location-chip {
+    display: flex; align-items: center; gap: 10px; background: #f8fbfd;
+    padding: 12px; border-radius: 8px; text-decoration: none; color: var(--primary);
+    font-weight: 600; font-size: 0.9rem; border: 1px solid transparent; transition: 0.3s;
+}
+.location-chip:hover { border-color: var(--accent); background: #fff; box-shadow: 0 5px 15px rgba(0,210,211,0.1); }
+.dot { width: 10px; height: 10px; border-radius: 50%; display: inline-block; }
+.dot.rionegro { background: #e74c3c; }
+.dot.norte { background: #f1c40f; }
+.dot.sur { background: #2ecc71; }
+
+.construction-area { border-top: 1px dashed #eee; padding-top: 20px; display: flex; gap: 15px; }
+.status-item {
+    flex: 1; background: #fafafa; padding: 15px; border-radius: 8px;
+    display: flex; flex-direction: column; align-items: center; gap: 5px;
+    color: #ccc; font-size: 0.8rem; text-align: center;
+}
+.badge-construction { background: #eee; color: #999; font-size: 0.6rem; padding: 2px 6px; border-radius: 4px; font-weight: bold; }
+/* --- NUEVO DASHBOARD "AMENO" --- */
+
+/* Barra Superior */
+.top-bar {
+    background: var(--white);
+    padding: 15px 5%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: 0 2px 15px rgba(0,0,0,0.03);
+    position: sticky; top: 0; z-index: 50;
+}
+
+.logo-section {
+    color: var(--primary);
+    font-weight: 700;
+    font-size: 1.1rem;
+    display: flex; align-items: center; gap: 10px;
+}
+.logo-section small { color: #999; font-weight: 400; }
+
+.user-pill {
+    background: #f0f4f8;
+    padding: 5px 5px 5px 15px;
+    border-radius: 30px;
+    display: flex; align-items: center; gap: 12px;
+}
+
+.user-data { text-align: right; line-height: 1.1; }
+.user-data span { display: block; font-size: 0.85rem; font-weight: 700; color: var(--primary); }
+.user-data small { font-size: 0.7rem; color: #777; text-transform: uppercase; }
+
+.logout-mini {
+    background: var(--white); color: var(--danger);
+    width: 35px; height: 35px; border-radius: 50%;
+    border: none; cursor: pointer; display: flex; align-items: center; justify-content: center;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.05); transition: 0.2s;
+}
+.logout-mini:hover { background: var(--danger); color: white; }
+
+/* Contenedor Principal */
+.app-container {
+    padding: 40px 5%;
+    max-width: 1000px;
+    margin: 0 auto;
+}
+
+.greeting-section { margin-bottom: 40px; }
+.greeting-section h1 { font-size: 1.8rem; color: var(--primary); margin-bottom: 5px; }
+.greeting-section p { color: #888; }
+.highlight-text { color: var(--accent); }
+
+.section-label {
+    font-size: 0.9rem; color: #999; text-transform: uppercase; letter-spacing: 1px;
+    margin-bottom: 15px; margin-top: 30px;
+}
+
+/* --- GRID DE RODAMIENTO (Tarjetas Grandes) --- */
+.cards-grid-large {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: 20px;
+}
+
+.app-card {
+    text-decoration: none;
+    border-radius: 20px;
+    padding: 25px;
+    position: relative;
+    overflow: hidden;
+    transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275), box-shadow 0.3s;
+    display: block;
+}
+
+.app-card:hover { transform: translateY(-5px); box-shadow: 0 15px 30px rgba(0,0,0,0.1); }
+
+/* Estilo Tarjeta Primaria (Azul) */
+.primary-card {
+    background: linear-gradient(135deg, var(--primary) 0%, #0a4569 100%);
+    color: var(--white);
+}
+.card-bg-icon {
+    position: absolute; right: -20px; bottom: -20px;
+    font-size: 8rem; opacity: 0.05; color: var(--white); transform: rotate(-15deg);
+}
+
+/* Estilo Tarjeta Secundaria (Blanca) */
+.secondary-card {
+    background: var(--white);
+    color: var(--primary);
+    border: 2px solid #eef2f5;
+}
+
+.card-content { display: flex; align-items: center; gap: 20px; position: relative; z-index: 2; }
+
+.icon-box {
+    width: 60px; height: 60px;
+    background: rgba(255,255,255,0.2);
+    border-radius: 15px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 1.5rem; flex-shrink: 0;
+}
+.icon-box.blue { background: rgba(6, 38, 59, 0.05); color: var(--primary); }
+
+.text-box h3 { font-size: 1.1rem; margin-bottom: 4px; }
+.text-box p { font-size: 0.85rem; opacity: 0.8; font-weight: 300; }
+
+.arrow-action { margin-left: auto; font-size: 1.2rem; opacity: 0.7; }
+.arrow-action.dark { color: var(--primary); }
+
+/* --- PANEL DE MONITOREO --- */
+.monitoring-panel {
+    background: var(--white);
+    border-radius: 20px;
+    padding: 25px;
+    box-shadow: 0 5px 20px rgba(0,0,0,0.03);
+}
+
+.monitor-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 15px;
+    margin-bottom: 25px;
+}
+
+.monitor-item {
+    display: flex; flex-direction: column; align-items: center; justify-content: center;
+    background: #f8fbfd;
+    padding: 20px; border-radius: 15px;
+    text-decoration: none; color: var(--primary);
+    transition: 0.2s; border: 1px solid transparent;
+    position: relative;
+}
+
+.monitor-item:hover {
+    background: var(--white);
+    border-color: var(--accent);
+    box-shadow: 0 5px 15px rgba(0, 210, 211, 0.15);
+    transform: translateY(-2px);
+}
+
+.monitor-item i { font-size: 1.8rem; margin-bottom: 10px; color: var(--accent); }
+.monitor-item span { font-weight: 600; font-size: 0.9rem; }
+
+.status-dot {
+    width: 8px; height: 8px; background: #ccc; border-radius: 50%;
+    position: absolute; top: 15px; right: 15px;
+}
+.status-dot.online { background: #2ecc71; box-shadow: 0 0 5px #2ecc71; }
+
+.construction-row {
+    display: flex; gap: 15px; flex-wrap: wrap; border-top: 1px dashed #eee; padding-top: 20px;
+}
+
+.disabled-pill {
+    flex: 1;
+    display: flex; align-items: center; justify-content: center; gap: 10px;
+    background: #fafafa; padding: 12px; border-radius: 10px;
+    color: #bbb; font-size: 0.9rem;
+}
+
+.tag-soon {
+    background: #eee; color: #888; font-size: 0.6rem; padding: 2px 6px;
+    border-radius: 4px; font-weight: bold; text-transform: uppercase;
+}
+
+/* Móvil */
+@media (max-width: 600px) {
+    .cards-grid-large { grid-template-columns: 1fr; }
+    .monitor-grid { grid-template-columns: 1fr; }
+    .construction-row { flex-direction: column; }
+}
+/* --- FONDO CON LA IMAGEN --- */
+.dashboard-wrapper {
+    width: 100%;
+    min-height: 100vh;
+    /* Aquí cargamos tu imagen */
+    background-image: url('assets/fondo_dashboard.jpg'); 
+    background-size: cover;       /* Ajusta la imagen para cubrir todo */
+    background-position: center;  /* Centra la imagen */
+    background-attachment: fixed; /* Efecto elegante: la imagen se queda quieta al hacer scroll */
+    position: relative;           /* Necesario para la capa blanca */
+    z-index: 1;
+}
+
+/* Capa blanca semitransparente para que se lea el texto */
+.dashboard-wrapper::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; width: 100%; height: 100%;
+    /* El 0.85 es la transparencia (85% blanco). 
+       Si quieres ver más la imagen, baja a 0.70. 
+       Si quieres leer mejor, sube a 0.90 */
+    background-color: rgba(255, 255, 255, 0.85); 
+    z-index: -1; /* Se pone detrás del contenido pero delante de la foto */
+    backdrop-filter: blur(3px); /* Un pequeño desenfoque para suavizar */
+}
+
+/* --- AJUSTES EN LAS TARJETAS PARA QUE RESALTEN --- */
+
+/* Hacemos la barra superior un poco transparente también */
+.top-bar {
+    background: rgba(255, 255, 255, 0.9);
+    backdrop-filter: blur(10px);
+    border-bottom: 1px solid rgba(0,0,0,0.05);
+}
+
+/* Ajuste a la tarjeta secundaria para que sea semi-transparente */
+.secondary-card, .monitoring-panel {
+    background: rgba(255, 255, 255, 0.9) !important; /* Blanco translúcido */
+    border: 1px solid rgba(255,255,255, 0.6);
+    box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.1); /* Sombra suave azulada */
+}
+
+/* La tarjeta primaria (Azul) la dejamos sólida para que destaque */
+.primary-card {
+    box-shadow: 0 10px 25px rgba(6, 38, 59, 0.3); /* Sombra más fuerte */
+}
+
+/* El resto de tu CSS (.app-container, .cards-grid-large, etc.) déjalo igual */
