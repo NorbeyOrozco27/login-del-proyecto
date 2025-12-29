@@ -161,64 +161,91 @@
                 </div>
             </section>
 
-            <!-- SECCIÓN GPS: VIDEOS + SEGURIDAD -->
-            <section id="section-monitoreo" class="content-section hidden">
+            <section id="section-monitoreo" class="content-section">
                 <div class="section-container">
                     <h2 class="title">📍 Monitoreo GPS Wialon de TransUnidos Corp.</h2>
+
                     <div class="video-grid">
+                        <!-- Tarjeta 1: Rionegro -->
                         <div class="video-card">
                             <video autoplay muted loop>
                                 <source src="assets/gps_rionegro.mp4">
                             </video>
                             <div class="card-body">
-                                <h3> </h3><button
-                                    onclick="abrirModalGps('https://norbeyorozco27.github.io/nimbus-prueba-2/')"
-                                    class="btn-go">🟡Rionegro</button>
+                                <h3>Monitoreo Rionegro</h3>
+                                <button onclick="abrirModalGps('https://norbeyorozco27.github.io/nimbus-prueba-2/')"
+                                    class="btn-go">🟡 Rionegro</button>
                             </div>
                         </div>
+
+                        <!-- Tarjeta 2: Medellín Norte -->
                         <div class="video-card">
                             <video autoplay muted loop>
                                 <source src="assets/gps_norte.mp4">
                             </video>
                             <div class="card-body">
-                                <h3> </h3><button
-                                    onclick="abrirModalGps('https://norbeyorozco27.github.io/Medellin-Norte/')"
-                                    class="btn-go">🔵Medellín Norte</button>
+                                <h3>Monitoreo Medellín Norte</h3>
+                                <button onclick="abrirModalGps('https://norbeyorozco27.github.io/Medellin-Norte/')"
+                                    class="btn-go">🔵 Medellín Norte</button>
                             </div>
                         </div>
+
+                        <!-- Tarjeta 3: Medellín Sur -->
                         <div class="video-card">
                             <video autoplay muted loop>
                                 <source src="assets/gps_sur.mp4">
                             </video>
                             <div class="card-body">
-                                <h3> </h3><button
-                                    onclick="abrirModalGps('https://norbeyorozco27.github.io/Medellin-Sur/')"
-                                    class="btn-go">🔴Medellín Sur</button>
+                                <h3>Monitoreo Medellín Sur</h3>
+                                <button onclick="abrirModalGps('https://norbeyorozco27.github.io/Medellin-Sur/')"
+                                    class="btn-go">🔴 Medellín Sur</button>
+                            </div>
+                        </div>
+
+                        <!-- Tarjeta 4: Velocidad -->
+                        <div class="video-card">
+                            <video autoplay muted loop>
+                                <source src="assets/velocidad.mp4">
+                            </video>
+                            <div class="card-body">
+                                <h3>Excesos de Velocidad</h3>
+                                <button onclick="abrirModalGps('https://norbeyorozco27.github.io/velocidad/')"
+                                    class="btn-go">🟢 Velocidad</button>
+                            </div>
+                        </div>
+
+                        <!-- Tarjeta 5: Paradas (YA NO ESTÁ ANIDADA) -->
+                        <div class="video-card">
+                            <video autoplay muted loop>
+                                <source src="assets/paradasno.mp4">
+                            </video>
+                            <div class="card-body">
+                                <h3>Paradas No Autorizadas</h3>
+                                <button onclick="abrirModalGps('https://norbeyorozco27.github.io/paradas/')"
+                                    class="btn-go">🟠 Paradas</button>
                             </div>
                         </div>
                     </div>
                 </div>
             </section>
-        </main>
-    </div>
 
-    <!-- MODAL SEGURIDAD -->
-    <div id="gps-lock-modal" class="modal-overlay hidden">
-        <div class="modal-card">
-            <i class="fa-solid fa-user-shield"></i>
-            <h3>Validar Identidad</h3>
-            <p>Ingresa tu contraseña para visualizar el GPS.</p>
-            <input type="password" id="gps-pass" placeholder="Contraseña">
-            <p id="gps-err" class="error-msg"></p>
-            <div class="modal-btns">
-                <button onclick="cerrarModalGps()" class="btn-cancel">Cancelar</button>
-                <button onclick="validarGps()" class="btn-confirm">Verificar</button>
+            <!-- MODAL SEGURIDAD -->
+            <div id="gps-lock-modal" class="modal-overlay hidden">
+                <div class="modal-card">
+                    <i class="fa-solid fa-user-shield"></i>
+                    <h3>Validar Identidad</h3>
+                    <p>Ingresa tu contraseña para visualizar el GPS.</p>
+                    <input type="password" id="gps-pass" placeholder="Contraseña">
+                    <p id="gps-err" class="error-msg"></p>
+                    <div class="modal-btns">
+                        <button onclick="cerrarModalGps()" class="btn-cancel">Cancelar</button>
+                        <button onclick="validarGps()" class="btn-confirm">Verificar</button>
+                    </div>
+                </div>
             </div>
-        </div>
-    </div>
 
-    <script src="https://unpkg.com/@supabase/supabase-js@2"></script>
-    <script src="script.js"></script>
+            <script src="https://unpkg.com/@supabase/supabase-js@2"></script>
+            <script src="script.js"></script>
 </body>
 
 </html>
