@@ -5,9 +5,530 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>TransUnidos | Centro de Mando</title>
+    <!-- Fuentes e Iconos -->
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link rel="stylesheet" href="styles.css">
+
+    <!-- ESTILOS CSS -->
+    <style>
+        :root {
+            --primary: #e74c3c;
+            /* Rojo TransUnidos */
+            --dark: #2c3e50;
+            --light: #ecf0f1;
+            --grey: #bdc3c7;
+            --white: #ffffff;
+            --shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Montserrat', sans-serif;
+        }
+
+        body {
+            background-color: #f4f7f6;
+            overflow-x: hidden;
+        }
+
+        /* Utilidades */
+        .hidden {
+            display: none !important;
+        }
+
+        /* 1. LOGIN STYLES */
+        .login-split-container {
+            display: flex;
+            height: 100vh;
+            width: 100vw;
+        }
+
+        .login-media-side {
+            flex: 1.5;
+            position: relative;
+            overflow: hidden;
+            background: #000;
+        }
+
+        .login-media-side video {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            opacity: 0.6;
+        }
+
+        .video-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(to bottom, rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.8));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .floating-brand-container {
+            text-align: center;
+            color: white;
+            animation: float 6s ease-in-out infinite;
+        }
+
+        .floating-brand-container img {
+            width: 150px;
+            margin-bottom: 20px;
+        }
+
+        .login-form-side {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: white;
+            padding: 40px;
+        }
+
+        .login-card-clean {
+            width: 100%;
+            max-width: 400px;
+            text-align: center;
+        }
+
+        .logo-circle-container img {
+            width: 80px;
+            margin-bottom: 20px;
+        }
+
+        .input-group {
+            position: relative;
+            margin-bottom: 20px;
+        }
+
+        .input-group i {
+            position: absolute;
+            left: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--grey);
+        }
+
+        .input-group input {
+            width: 100%;
+            padding: 15px 15px 15px 45px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            outline: none;
+            transition: 0.3s;
+        }
+
+        .input-group input:focus {
+            border-color: var(--primary);
+        }
+
+        button#btn-login {
+            width: 100%;
+            padding: 15px;
+            background: var(--primary);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        button#btn-login:hover {
+            background: #c0392b;
+        }
+
+        /* 2. DASHBOARD LAYOUT */
+        .dashboard-wrapper {
+            display: flex;
+            height: 100vh;
+        }
+
+        /* Sidebar */
+        .sidebar {
+            width: 260px;
+            background: var(--dark);
+            color: white;
+            display: flex;
+            flex-direction: column;
+            flex-shrink: 0;
+        }
+
+        .sidebar-header {
+            padding: 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .sidebar-logo {
+            width: 40px;
+        }
+
+        .sidebar-nav {
+            flex: 1;
+            padding: 20px 0;
+        }
+
+        .nav-item {
+            display: block;
+            padding: 15px 25px;
+            color: #bdc3c7;
+            text-decoration: none;
+            transition: 0.3s;
+        }
+
+        .nav-item:hover,
+        .nav-item.active {
+            background: rgba(255, 255, 255, 0.1);
+            color: white;
+            border-left: 4px solid var(--primary);
+        }
+
+        .nav-item i {
+            margin-right: 10px;
+            width: 20px;
+            text-align: center;
+        }
+
+        .sidebar-footer {
+            padding: 20px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .user-pill {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            background: rgba(255, 255, 255, 0.05);
+            padding: 10px;
+            border-radius: 8px;
+        }
+
+        .btn-logout-pro {
+            background: none;
+            border: none;
+            color: var(--primary);
+            cursor: pointer;
+            font-size: 1.2rem;
+        }
+
+        /* Main Content */
+        .main-content {
+            flex: 1;
+            overflow-y: auto;
+            position: relative;
+        }
+
+        .content-section {
+            padding: 0;
+            min-height: 100%;
+            animation: fadeIn 0.5s ease;
+        }
+
+        .section-container {
+            padding: 40px;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .title {
+            font-size: 2rem;
+            color: var(--dark);
+            margin-bottom: 30px;
+            border-bottom: 2px solid var(--primary);
+            display: inline-block;
+            padding-bottom: 10px;
+        }
+
+        /* Carrusel Inicio */
+        .hero-carousel {
+            height: 100vh;
+            width: 100%;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .carousel-container {
+            height: 100%;
+            width: 100%;
+            position: relative;
+        }
+
+        .slide {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            opacity: 0;
+            transition: opacity 1s ease-in-out;
+        }
+
+        .slide.active {
+            opacity: 1;
+        }
+
+        .slide img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            filter: brightness(0.6);
+        }
+
+        .slide-info {
+            position: absolute;
+            bottom: 100px;
+            left: 50px;
+            color: white;
+            max-width: 600px;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+        }
+
+        .slide-info h2 {
+            font-size: 3rem;
+            margin-bottom: 10px;
+        }
+
+        .carousel-dots {
+            position: absolute;
+            bottom: 30px;
+            width: 100%;
+            text-align: center;
+        }
+
+        .dot {
+            height: 12px;
+            width: 12px;
+            background-color: rgba(255, 255, 255, 0.5);
+            border-radius: 50%;
+            display: inline-block;
+            margin: 0 5px;
+            cursor: pointer;
+        }
+
+        .dot.active {
+            background-color: white;
+            transform: scale(1.2);
+        }
+
+        /* --- GRID SYSTEM PARA TARJETAS IGUALES --- */
+        .video-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            /* Columnas responsivas */
+            gap: 25px;
+            width: 100%;
+        }
+
+        .video-card {
+            background: white;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: var(--shadow);
+            transition: transform 0.3s;
+            display: flex;
+            flex-direction: column;
+            /* Hace que el contenido se estire */
+            height: 100%;
+            /* Forza altura igual en fila */
+        }
+
+        .video-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .video-card video {
+            width: 100%;
+            height: 200px;
+            /* Altura fija para el video */
+            object-fit: cover;
+            background: #000;
+        }
+
+        .card-body {
+            padding: 20px;
+            text-align: center;
+            flex-grow: 1;
+            /* Rellena el espacio sobrante */
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            /* Empuja el botón al fondo */
+        }
+
+        .card-body h3 {
+            margin-bottom: 15px;
+            color: var(--dark);
+            font-size: 1.1rem;
+        }
+
+        .btn-go {
+            display: inline-block;
+            padding: 10px 20px;
+            background: var(--dark);
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            transition: 0.3s;
+            border: none;
+            cursor: pointer;
+            width: 100%;
+        }
+
+        .btn-go:hover {
+            background: var(--primary);
+        }
+
+        /* MODALES (General) */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            z-index: 1000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .modal-card {
+            background: white;
+            padding: 30px;
+            border-radius: 15px;
+            width: 90%;
+            max-width: 400px;
+            text-align: center;
+            animation: slideDown 0.4s ease;
+        }
+
+        .modal-card h3 {
+            margin: 15px 0;
+            color: var(--dark);
+        }
+
+        .modal-btns {
+            display: flex;
+            gap: 10px;
+            justify-content: center;
+            margin-top: 20px;
+        }
+
+        .modal-btns button {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .btn-confirm {
+            background: var(--primary);
+            color: white;
+        }
+
+        .btn-cancel {
+            background: #95a5a6;
+            color: white;
+        }
+
+        /* ESTILO ESPECÍFICO MODAL DE NOVEDADES */
+        .news-card {
+            max-width: 550px;
+            text-align: left;
+            border-top: 6px solid var(--primary);
+        }
+
+        .news-header {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 20px;
+            color: var(--primary);
+            border-bottom: 1px solid #eee;
+            padding-bottom: 10px;
+        }
+
+        .news-header i {
+            font-size: 1.8rem;
+        }
+
+        .news-item {
+            margin-bottom: 15px;
+        }
+
+        .news-item h4 {
+            color: var(--dark);
+            margin-bottom: 5px;
+            font-weight: 700;
+        }
+
+        .news-item p {
+            color: #555;
+            font-size: 0.95rem;
+            line-height: 1.4;
+        }
+
+        .news-footer-btn {
+            width: 100%;
+            margin-top: 15px;
+            padding: 12px;
+            background: var(--dark);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: bold;
+        }
+
+        .news-footer-btn:hover {
+            background: var(--primary);
+        }
+
+        @keyframes float {
+            0% {
+                transform: translateY(0px);
+            }
+
+            50% {
+                transform: translateY(-15px);
+            }
+
+            100% {
+                transform: translateY(0px);
+            }
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+
+            to {
+                opacity: 1;
+            }
+        }
+
+        @keyframes slideDown {
+            from {
+                transform: translateY(-50px);
+                opacity: 0;
+            }
+
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+    </style>
 </head>
 
 <body>
@@ -20,7 +541,7 @@
             </video>
             <div class="video-overlay">
                 <div class="floating-brand-container">
-                    <img src="assets/Logo.png" class="logo-float">
+                    <img src="assets/Logo.png" class="logo-float" alt="Logo">
                     <div class="brand-text-login">
                         <h2>Logística Inteligente</h2>
                         <p>Centro de Mando TransUnidos Corp.</p>
@@ -31,7 +552,7 @@
 
         <div class="login-form-side">
             <div class="login-card-clean">
-                <div class="logo-circle-container"><img src="assets/Logo.png"></div>
+                <div class="logo-circle-container"><img src="assets/Logo.png" alt="Logo"></div>
                 <h2>Acceso Seguro</h2>
                 <p class="subtitle">Ingresa tus credenciales corporativas.</p>
                 <form id="login-form">
@@ -44,7 +565,6 @@
                         <input type="password" id="password" placeholder="Contraseña" required>
                     </div>
                     <button type="submit" id="btn-login">INGRESAR <i class="fa-solid fa-arrow-right"></i></button>
-                    <p id="feedback-msg" class="feedback"></p>
                 </form>
             </div>
         </div>
@@ -55,7 +575,7 @@
         <!-- Sidebar -->
         <aside class="sidebar">
             <div class="sidebar-header">
-                <img src="assets/Logo.png" class="sidebar-logo">
+                <img src="assets/Logo.png" class="sidebar-logo" alt="Logo">
                 <span>TransUnidos</span>
             </div>
 
@@ -74,8 +594,8 @@
             <div class="sidebar-footer">
                 <div class="user-pill">
                     <div class="user-data">
-                        <p id="user-name-display">Usuario</p>
-                        <small id="user-role-display">Rol</small>
+                        <p id="user-name-display">Operador</p>
+                        <small id="user-role-display">Logística</small>
                     </div>
                     <button onclick="logout()" class="btn-logout-pro"><i class="fa-solid fa-power-off"></i></button>
                 </div>
@@ -85,88 +605,94 @@
         <!-- Main Content -->
         <main class="main-content">
 
-            <!-- SECCIÓN INICIO: CARRUSEL 100% ALTO -->
+            <!-- SECCIÓN INICIO: CARRUSEL -->
             <section id="section-inicio" class="content-section">
                 <div class="hero-carousel">
                     <div class="carousel-container">
                         <div class="slide active">
-                            <img src="assets/imagen1.png">
+                            <img src="assets/imagen1.png" alt="Imagen 1">
                             <div class="slide-info">
                                 <h2>Bienvenidos</h2>
                                 <p>Al Ecosistema Digital de TransUnidos Corp.</p>
                             </div>
                         </div>
                         <div class="slide">
-                            <img src="assets/imagen2.png">
+                            <img src="assets/imagen2.png" alt="Imagen 2">
                             <div class="slide-info">
-                                <h2>Gestión Operativa Inteligente</h2>
+                                <h2>Gestión Operativa</h2>
                                 <p>Control de despachos por Rodamiento TU.</p>
                             </div>
                         </div>
                         <div class="slide">
-                            <img src="assets/imagen3.png">
+                            <img src="assets/imagen3.png" alt="Imagen 3">
                             <div class="slide-info">
                                 <h2>Flota Vans</h2>
                                 <p>Servicios vehiculares directos.</p>
                             </div>
                         </div>
-                        <div class="slide">
-                            <img src="assets/imagen4.png">
-                            <div class="slide-info">
-                                <h2>Flota Bus</h2>
-                                <p>Transporte intermunicipal de pasajeros y encomiendas.</p>
-                            </div>
-                        </div>
-                        <div class="slide">
-                            <img src="assets/imagen5.png">
-                            <div class="slide-info">
-                                <h2>Seguridad Satelital</h2>
-                                <p>Monitoreo GPS protegido Wialon.</p>
-                            </div>
-                        </div>
                     </div>
                     <div class="carousel-dots">
-                        <span class="dot active"></span><span class="dot"></span><span class="dot"></span><span
-                            class="dot"></span><span class="dot"></span>
+                        <span class="dot active"></span><span class="dot"></span><span class="dot"></span>
                     </div>
                 </div>
             </section>
 
-            <!-- SECCIÓN RODAMIENTOS: VIDEOS -->
+            <!-- SECCIÓN RODAMIENTOS (CORREGIDA) -->
             <section id="section-rodamientos" class="content-section hidden">
                 <div class="section-container">
-                    <h2 class="title">📅 Gestión del Rodamiento TransUnidos Corp.</h2>
+                    <div style="display: flex; justify-content: space-between; align-items: center;">
+                        <h2 class="title">📅 Gestión del Rodamiento</h2>
+                        <button onclick="mostrarNovedades()" class="btn-go" style="width: auto;"><i
+                                class="fa-solid fa-bell"></i> Ver Novedades</button>
+                    </div>
+
+                    <!-- GRID CORREGIDO: Todas las tarjetas son hermanas directas -->
                     <div class="video-grid">
+                        <!-- Tarjeta 1 -->
+                        <div class="video-card">
+                            <video autoplay muted loop>
+                                <source src="assets/usuario.mp4">
+                            </video>
+                            <div class="card-body">
+                                <h3>Guía del Usuario</h3>
+                                <a href="https://norbeyorozco27.github.io/manual-del-usuario/manual%20del%20usuario.html#intro"
+                                    target="_blank" class="btn-go">📖 Ver Guía</a>
+                            </div>
+                        </div>
+
+                        <!-- Tarjeta 2 -->
                         <div class="video-card">
                             <video autoplay muted loop>
                                 <source src="assets/mando_semanal.mp4">
                             </video>
                             <div class="card-body">
-                                <h3> </h3><a
-                                    href="https://script.google.com/macros/s/AKfycbwRSjW0AVGgn9CqgJ7cfqeCmxZ3o5pwZ_UvUbsD4JCIWU_SyhpZBM5wgsIyN3-9kXWB/exec"
-                                    target="_blank" class="btn-go">🟢Centro de Mando Semanal</a>
+                                <h3>Centro de Mando Semanal</h3>
+                                <a href="https://script.google.com/macros/s/AKfycbxsZhdsCKyzWqkdCN7UuTnTbe1NVLQ0Hx-TetY2jDhFEMoZvylXHNiISpMin1N4pVQF/exec"
+                                    target="_blank" class="btn-go">🟢 Acceder</a>
                             </div>
                         </div>
+
+                        <!-- Tarjeta 3 -->
                         <div class="video-card">
                             <video autoplay muted loop>
                                 <source src="assets/mando_dominical.mp4">
                             </video>
                             <div class="card-body">
-                                <h3> </h3><a
-                                    href="https://script.google.com/macros/s/AKfycbzJE20RotviDMSDDJZcKS3-5PMdMl5YYJn3nSvSLTb1tOAqTa0vQZ3HrXp2R0Of2gXA/exec"
-                                    target="_blank" class="btn-go"> 🟠Centro de Mando Dominical</a>
+                                <h3>Centro de Mando Dominical</h3>
+                                <a href="https://script.google.com/macros/s/AKfycbzL-AJjr21skuGvEMK28bO1a0yl4r_u2VF5jxTDIeH9eaoCqYpb_Dj9bLd8s1j7FwE0/exec"
+                                    target="_blank" class="btn-go">🟠 Acceder</a>
                             </div>
                         </div>
                     </div>
                 </div>
             </section>
 
-            <section id="section-monitoreo" class="content-section">
+            <!-- SECCIÓN MONITOREO -->
+            <section id="section-monitoreo" class="content-section hidden">
                 <div class="section-container">
-                    <h2 class="title">📍 Monitoreo GPS Wialon de TransUnidos Corp.</h2>
+                    <h2 class="title">📍 Monitoreo GPS Wialon</h2>
 
                     <div class="video-grid">
-                        <!-- Tarjeta 1: Rionegro -->
                         <div class="video-card">
                             <video autoplay muted loop>
                                 <source src="assets/gps_rionegro.mp4">
@@ -178,43 +704,39 @@
                             </div>
                         </div>
 
-                        <!-- Tarjeta 2: Medellín Norte -->
                         <div class="video-card">
                             <video autoplay muted loop>
                                 <source src="assets/gps_norte.mp4">
                             </video>
                             <div class="card-body">
-                                <h3>Monitoreo Medellín Norte</h3>
+                                <h3>Medellín Norte</h3>
                                 <button onclick="abrirModalGps('https://norbeyorozco27.github.io/Medellin-Norte/')"
-                                    class="btn-go">🔵 Medellín Norte</button>
+                                    class="btn-go">🔵 Norte</button>
                             </div>
                         </div>
 
-                        <!-- Tarjeta 3: Medellín Sur -->
                         <div class="video-card">
                             <video autoplay muted loop>
                                 <source src="assets/gps_sur.mp4">
                             </video>
                             <div class="card-body">
-                                <h3>Monitoreo Medellín Sur</h3>
+                                <h3>Medellín Sur</h3>
                                 <button onclick="abrirModalGps('https://norbeyorozco27.github.io/Medellin-Sur/')"
-                                    class="btn-go">🔴 Medellín Sur</button>
+                                    class="btn-go">🔴 Sur</button>
                             </div>
                         </div>
 
-                        <!-- Tarjeta 4: Velocidad -->
                         <div class="video-card">
                             <video autoplay muted loop>
                                 <source src="assets/velocidad.mp4">
                             </video>
                             <div class="card-body">
-                                <h3>Excesos de Velocidad</h3>
+                                <h3>Control Velocidad</h3>
                                 <button onclick="abrirModalGps('https://norbeyorozco27.github.io/velocidad/')"
                                     class="btn-go">🟢 Velocidad</button>
                             </div>
                         </div>
 
-                        <!-- Tarjeta 5: Paradas (YA NO ESTÁ ANIDADA) -->
                         <div class="video-card">
                             <video autoplay muted loop>
                                 <source src="assets/paradasno.mp4">
@@ -228,24 +750,139 @@
                     </div>
                 </div>
             </section>
+        </main>
+    </div>
 
-            <!-- MODAL SEGURIDAD -->
-            <div id="gps-lock-modal" class="modal-overlay hidden">
-                <div class="modal-card">
-                    <i class="fa-solid fa-user-shield"></i>
-                    <h3>Validar Identidad</h3>
-                    <p>Ingresa tu contraseña para visualizar el GPS.</p>
-                    <input type="password" id="gps-pass" placeholder="Contraseña">
-                    <p id="gps-err" class="error-msg"></p>
-                    <div class="modal-btns">
-                        <button onclick="cerrarModalGps()" class="btn-cancel">Cancelar</button>
-                        <button onclick="validarGps()" class="btn-confirm">Verificar</button>
-                    </div>
+    <!-- MODAL 1: SEGURIDAD GPS -->
+    <div id="gps-lock-modal" class="modal-overlay hidden">
+        <div class="modal-card">
+            <i class="fa-solid fa-user-shield" style="font-size: 3rem; color: var(--primary); margin-bottom: 10px;"></i>
+            <h3>Validar Identidad</h3>
+            <p>Ingresa tu contraseña para visualizar el GPS.</p>
+            <input type="password" id="gps-pass" placeholder="Contraseña"
+                style="padding: 10px; width: 80%; border: 1px solid #ccc; border-radius: 5px; margin-top: 10px;">
+            <p id="gps-err" style="color: red; font-size: 0.8rem; margin-top: 5px;"></p>
+            <div class="modal-btns">
+                <button onclick="cerrarModalGps()" class="btn-cancel">Cancelar</button>
+                <button onclick="validarGps()" class="btn-confirm">Verificar</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- MODAL 2: NUEVAS FUNCIONALIDADES (NOVEDADES) -->
+    <div id="news-modal" class="modal-overlay hidden">
+        <div class="modal-card news-card">
+            <div class="news-header">
+                <i class="fa-solid fa-bullhorn"></i>
+                <h3>Nuevas Funcionalidades</h3>
+            </div>
+            <div class="news-content">
+                <div class="news-item">
+                    <h4><i class="fa-solid fa-book"></i> Guía del Usuario</h4>
+                    <p>Donde se especifica de forma amplia las funcionalidades del centro de mando y su uso correcto.
+                    </p>
+                </div>
+                <div class="news-item">
+                    <h4><i class="fa-solid fa-rocket"></i> Centro de Mando V2</h4>
+                    <p>Nueva versión de programación actualizada. Acceso total a gráficos de operación diaria,
+                        históricos masivos y pantalla de terminales.</p>
+                </div>
+                <div class="news-item">
+                    <h4><i class="fa-solid fa-key"></i> Cambio de Contraseña</h4>
+                    <p>Acercarse al área de datos para actualizar su perfil de la semana.</p>
                 </div>
             </div>
+            <button onclick="cerrarNovedades()" class="news-footer-btn">¡Entendido!</button>
+        </div>
+    </div>
 
-            <script src="https://unpkg.com/@supabase/supabase-js@2"></script>
-            <script src="script.js"></script>
+    <!-- SCRIPT LÓGICA -->
+    <script>
+        // 1. LÓGICA DE LOGIN Y NOVEDADES
+        document.getElementById('login-form').addEventListener('submit', function (e) {
+            e.preventDefault();
+
+            // Simulación de validación (aquí iría tu conexión a Supabase/API)
+            // Si el login es correcto:
+            document.getElementById('login-view').classList.add('hidden');
+            document.getElementById('dashboard-view').classList.remove('hidden');
+
+            // MOSTRAR LA VENTANA DE NOVEDADES AL ENTRAR
+            mostrarNovedades();
+        });
+
+        function logout() {
+            location.reload(); // Recarga simple para volver al login
+        }
+
+        // 2. LÓGICA DE PESTAÑAS (SPA)
+        function switchTab(tabId) {
+            // Ocultar todas las secciones
+            const sections = document.querySelectorAll('.content-section');
+            sections.forEach(sec => sec.classList.add('hidden'));
+
+            // Quitar clase active de nav
+            const navs = document.querySelectorAll('.nav-item');
+            navs.forEach(nav => nav.classList.remove('active'));
+
+            // Mostrar sección seleccionada
+            document.getElementById('section-' + tabId).classList.remove('hidden');
+            document.getElementById('nav-' + tabId).classList.add('active');
+        }
+
+        // 3. LÓGICA MODAL NOVEDADES
+        function mostrarNovedades() {
+            document.getElementById('news-modal').classList.remove('hidden');
+        }
+
+        function cerrarNovedades() {
+            document.getElementById('news-modal').classList.add('hidden');
+        }
+
+        // 4. LÓGICA MODAL GPS
+        let linkPendiente = '';
+
+        function abrirModalGps(url) {
+            linkPendiente = url;
+            document.getElementById('gps-lock-modal').classList.remove('hidden');
+            document.getElementById('gps-pass').value = '';
+            document.getElementById('gps-err').innerText = '';
+        }
+
+        function cerrarModalGps() {
+            document.getElementById('gps-lock-modal').classList.add('hidden');
+            linkPendiente = '';
+        }
+
+        function validarGps() {
+            const pass = document.getElementById('gps-pass').value;
+            // Contraseña simple de ejemplo "1234". Cámbiala por tu lógica real.
+            if (pass === '1234') {
+                window.open(linkPendiente, '_blank');
+                cerrarModalGps();
+            } else {
+                document.getElementById('gps-err').innerText = 'Contraseña incorrecta';
+            }
+        }
+
+        // 5. CARRUSEL AUTOMÁTICO
+        let currentSlide = 0;
+        const slides = document.querySelectorAll('.slide');
+        const dots = document.querySelectorAll('.dot');
+
+        function nextSlide() {
+            slides[currentSlide].classList.remove('active');
+            if (dots[currentSlide]) dots[currentSlide].classList.remove('active');
+
+            currentSlide = (currentSlide + 1) % slides.length;
+
+            slides[currentSlide].classList.add('active');
+            if (dots[currentSlide]) dots[currentSlide].classList.add('active');
+        }
+
+        setInterval(nextSlide, 5000); // Cambia imagen cada 5 segundos
+
+    </script>
 </body>
 
 </html>
